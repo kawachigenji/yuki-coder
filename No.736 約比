@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+#define PI 3.14159265359
+using namespace std;
+const int64_t MOD = 1e9 + 7;
+
+int64_t gcd(int64_t a, int64_t b) {
+	int64_t n, m;
+	n = max(a, b);
+	m = min(a, b);
+
+	if (!m) return n;
+
+	while (1) {
+		int64_t spl = n % m;
+		if (spl) {
+			n = m;
+			m = spl;
+		}
+		else {
+			return m;
+		}
+	}
+}
+
+int main() {
+	int N;
+	cin >> N;
+
+	vector<int64_t> v(N);
+	for (int i = 0; i < N; i++) {
+		cin >> v.at(i);
+	}
+
+	int64_t d = 0;
+	for (int i = 0; i < N; i++) {
+		d = gcd(v.at(i), d);
+		//cout << d << endl;
+	}
+
+	for (int i = 0; i < N; i++) {
+		if (i) cout << ':';
+		cout << v.at(i) / d;
+	}
+	cout << endl;
+}
