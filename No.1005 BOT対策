@@ -1,0 +1,34 @@
+#include <bits/stdc++.h>
+#define PI 3.14159265359
+#define MAX 10000
+#define NIL -1
+using namespace std;
+const int64_t MOD = 1e9 + 7;
+
+int main() {
+	string S, T;
+	cin >> S >> T;
+
+	if ((T.size() == 1) && count(S.begin(), S.end(), T.at(0))) {
+		cout << -1 << endl;
+		return 0;
+	}
+	//cout << count(S.begin(), S.end(), T.at(0)) << endl;
+	//cout << count(S.begin(), S.end(), "aaa") << endl;		compile error
+
+	int cnt = 0;
+	for (int i = 0; i < S.size(); i++) {
+		//cout << S << endl;
+		string s = S.substr(i, T.size());
+		if (s == T) {
+			string alt = S.substr(0, (i + T.size() - 1)) + '.' + S.substr(i + T.size() - 1);
+			S = alt;
+			cnt++;
+			//cout << S.substr(0, (i + T.size() - 1)) << endl;
+			//cout << S.substr(i + T.size() - 1) << endl;
+		}
+	}
+	//cout << S << endl;
+
+	cout << cnt << endl;
+}
