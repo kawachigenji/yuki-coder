@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+#define PI 3.14159265359
+#define MAX 10000
+#define NIL -1
+using namespace std;
+const int64_t MOD = 1e9 + 7;
+
+int main() {
+	int N, No, M, S;
+	string Tag;
+	cin >> N;
+
+	struct info {
+		string tag;
+		int point;
+
+		// 最後のconstを忘れると"instantiated from here"というエラーが出てコンパイルできないので注意
+		bool operator<(const info& right) const {
+			return point == right.point ? tag > right.tag : point < right.point;
+		}
+	};
+
+	vector<struct info> v;
+	for (int i = 0; i < N; i++) {
+		cin >> No >> M >> S;
+
+		for (int j = 0; j < M; j++) {
+			cin >> Tag;
+
+			int f = 0;
+			for (int k = 0; k < v.size(); k++) {
+				string t = v.at(k).tag;
+				if (t == Tag) {
+					v.at(k).point += S;
+					f = 1;
+				}
+			}
+
+			if (!f) {
+				struct info inf = { Tag,S };
+				v.push_back(inf);
+			}
+		}
+	}
+	sort(v.begin(), v.end());	//構造体の順序付けを定義しておく
+
+	int n = v.size();
+	int m = min(n, 10);
+	//cout << n << endl;
+	for (int i = 0; i < m; i++) {
+		cout << v.at(n-1).tag << ' ' << v.at(n-1).point << endl;
+		n--;
+	}
+}
