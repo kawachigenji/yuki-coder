@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+#define PI 3.14159265359
+#define MAX 10000
+#define NIL -1
+using namespace std;
+const int64_t MOD = 1e9 + 7;
+
+int main() {
+	int A, B, C;
+	cin >> A >> B >> C;
+
+	for (int i = 0; i <= A + B * 10; i++) {
+		for (int j = 0; j <= A; j++) {
+			for (int k = 0; k <= B; k++) {
+				int p = j + k * 10;
+				int a, b;
+				a = j;
+				b = k;
+				if (p < i) continue;
+
+				if (p > i) {
+					a -= (p - i) % 10;
+					b -= (p - i) / 10;
+					
+				}
+
+				int n = A + B - a - b;
+				if (n == C) {
+					cout << i << endl;
+					return 0;
+				}
+			}
+		}
+	}
+
+	cout << "Impossible" << endl;
+}
