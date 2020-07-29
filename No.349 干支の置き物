@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+#define PI 3.14159265359
+#define MAX 10000
+#define NIL -1
+using namespace std;
+const int64_t MOD = 1e9 + 7;
+
+int main() {
+	int N;
+	cin >> N;
+
+	struct info {
+		string eto;
+		int count;
+
+		bool operator<(const info& right) const {
+			return count == right.count ? eto < right.eto : count < right.count;
+		}
+	};
+
+	vector<struct info> v;
+	for (int i = 0; i < N; i++) {
+		string s;
+		cin >> s;
+
+		int f = 1;
+		for (int j = 0; j < v.size(); j++) {
+			if (v.at(j).eto == s) {
+				f = 0;
+				v.at(j).count++;
+			}
+		}
+
+		if (f) {
+			struct info inf = { s,1 };
+			v.push_back(inf);
+		}
+	}
+	sort(v.begin(), v.end());
+
+	int n = v.at(v.size() - 1).count;
+	//cout << n << endl;
+	if (n <= ((N + 1) / 2)) {
+		cout << "YES" << endl;
+	}
+	else {
+		cout << "NO" << endl;
+	}
+}
